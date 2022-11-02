@@ -1,0 +1,66 @@
+---
+title: "Industrial Accidents"
+author: "Narendran Ramakrishnan"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# ***Project Title***: Industrial Labor Accidents
+## **Source**: Kaggle dataset
+## ***INTRODUCTION :***
+Labor death is a very common issue in industrial field. The following dataset shows the death in different deaths in different regions in different countries.
+The different variables present in the data set is shown below:
+```{r, echo=FALSE}
+inddeath = read.csv("C:\\Users\\Lenovo\\Desktop\\industrydeath.csv")
+inddeath = inddeath[, 1:10]
+colnames(inddeath)
+head(inddeath)
+```
+Now we describe the variables above:
+*X*: It is the index of the given dataset
+*Data*: The dates of accidents
+*Countries*: Countries where the accident occured
+*Local*: The locality where accident occured
+*Industry.Sector*:The industry type where the accident occured
+*Accident.Level*: The level of accident occured
+*Potential.Accident.Level* : Estimated level of accident
+*Genre*: Gender of the victim
+*Employee.or.Third.Party*: Victim's organisation status
+*Critical risk*: Condition of the victim
+
+## Plots and Graphs:
+
+### *Accidents in countries*:
+
+```{r, echo=FALSE}
+library(ggplot2)
+ggplot(inddeath,aes(x= Countries, fill = Local))+geom_bar(color = "white", width = 1)
+```
+
+### *Accidents in localities with respect to Gender*:
+
+```{r,echo =FALSE}
+ggplot(inddeath,aes(x= Local, fill = Genre))+geom_bar(color = "white", width = 1)
+```
+
+### *Accidents in localities with respect to industry* :
+```{r, echo =FALSE}
+ggplot(inddeath,aes(x= Local, fill = Industry.Sector))+geom_bar(color = "white", width = 1)
+```
+
+### *Accident level vs Potential accident level*:
+```{r,echo = FALSE}
+ggplot(inddeath, aes(x=Potential.Accident.Level, y= Accident.Level)) +
+  geom_point(shape=8, size= 5, color="blue")
+```
+###*Critical Risk along with victim status*:
+
+```{r,echo=FALSE}
+ggplot(inddeath,aes(x= Critical.Risk, fill = Employee.or.Third.Party))+geom_bar(color = "white", width = 1)+ theme(axis.text=element_text(size=5))+coord_flip()
+```
